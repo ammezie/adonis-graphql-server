@@ -15,6 +15,33 @@
 
 const Route = use('Route')
 
+const ApolloServer = use('ApolloServer')
+const { makeExecutableSchema } = require('graphql-tools')
+
+const typeDefs = `
+    type Query {
+        testString: String
+    }
+`
+
+const resolvers = {
+    Query: {
+        testString () {
+            return 'Seems to be working!'
+        }
+    }
+}
+
+const schema = makeExecutableSchema({ typeDefs, resolvers })
+
 Route.get('/', ({ request }) => {
   return { greeting: 'Hello world in JSON' }
+})
+
+Route.route('/graphql', ({ request, response }) => {
+    return ApolloServer.graphql({ schema }, request, response)
+}, ['GET', 'POST'])
+
+Route.get('/graphiql', ({ request, response }) => {
+    return ApolloServer.graphiql({ endpointURL: '/graphql' }, request, response)
 })

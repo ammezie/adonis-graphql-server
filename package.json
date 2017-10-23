@@ -22,7 +22,10 @@
     "@adonisjs/fold": "^4.0.4",
     "@adonisjs/framework": "^4.0.23",
     "@adonisjs/ignitor": "^1.0.12",
-    "@adonisjs/lucid": "^4.0.20"
+    "@adonisjs/lucid": "^4.0.20",
+    "adonis-apollo-server": "^1.0.2",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.6.1"
   },
   "devDependencies": {
     "standard": "^10.0.3"
