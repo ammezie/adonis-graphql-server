@@ -16,23 +16,24 @@
 const Route = use('Route')
 
 const ApolloServer = use('ApolloServer')
-const { makeExecutableSchema } = require('graphql-tools')
+const schema = require('../app/data/schema');
+// const { makeExecutableSchema } = require('graphql-tools')
 
-const typeDefs = `
-    type Query {
-        testString: String
-    }
-`
+// const typeDefs = `
+//     type Query {
+//         testString: String
+//     }
+// `
 
-const resolvers = {
-    Query: {
-        testString () {
-            return 'Seems to be working!'
-        }
-    }
-}
+// const resolvers = {
+//     Query: {
+//         testString () {
+//             return 'Seems to be working!'
+//         }
+//     }
+// }
 
-const schema = makeExecutableSchema({ typeDefs, resolvers })
+// const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 Route.get('/', ({ request }) => {
   return { greeting: 'Hello world in JSON' }

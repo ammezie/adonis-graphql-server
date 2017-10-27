@@ -26,7 +26,8 @@
     "adonis-apollo-server": "^1.0.2",
     "graphql": "^0.11.7",
     "graphql-tools": "^2.6.1",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "slugify": "^1.2.1"
   },
   "devDependencies": {
     "standard": "^10.0.3"
