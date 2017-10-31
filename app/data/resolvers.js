@@ -34,34 +34,46 @@ const resolvers = {
 
   Mutation: {
     // Handles user login
-    async login(_, { email, password }) {
+    async login(_, { email, password }, { auth }) {
+      const { token } = await auth.attempt(email, password)
 
+      return token
     },
 
     // Create new user
     async createUser(_, { username, email, password }) {
-      const user = await User.create({ username, email, password })
-
-      return user.toJSON()
+      return await User.create({ username, email, password })
     },
 
     // Add a new post
-    async addPost(_, { title, content, userId }, { authUser }) {
-      const post = await Post.create({
-        user_id: userId,
-        title,
-        slug: slugify(title, { lower: true }),
-        content
-      })
+    async addPost(_, { title, content }, { auth }) {
+      try {
+        // Check if user is logged in
+        await auth.check()
 
-      return post.toJSON()
+        // Get the authenticated user
+        const user = await auth.getUser()
+
+        // Add new post
+        return await Post.create({
+          user_id: user.id,
+          title,
+          slug: slugify(title, { lower: true }),
+          content
+        })
+      } catch (error) {
+        // Throw eeror is user's not authenticated
+        throw new Error('Missing or invalid jwt token')
+      }
     }
   },
 
   User: {
     // Fetch all posts created by a user
     async posts(user) {
-      const posts = await user.posts().fetch()
+      const posts = await Post.query()
+                              .where('user_id', user.id)
+                              .fetch()
 
       return posts.toJSON()
     }
@@ -70,7 +82,9 @@ const resolvers = {
   Post: {
     // Fetch the author of a particular post
     async user(post) {
-      const user = await post.user().fetch()
+      const user = await User.query()
+                              .where('id', post.user_id)
+                              .first()
 
       return user.toJSON()
     }
