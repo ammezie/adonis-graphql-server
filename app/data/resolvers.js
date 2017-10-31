@@ -70,10 +70,12 @@ const resolvers = {
 
   User: {
     // Fetch all posts created by a user
-    async posts(user) {
-      const posts = await Post.query()
-                              .where('user_id', user.id)
-                              .fetch()
+    async posts(userInJson) {
+      // Convert JSON to model instance
+      const user = new User()
+      user.newUp(userInJson)
+
+      const posts = await user.posts().fetch()
 
       return posts.toJSON()
     }
@@ -81,10 +83,12 @@ const resolvers = {
 
   Post: {
     // Fetch the author of a particular post
-    async user(post) {
-      const user = await User.query()
-                              .where('id', post.user_id)
-                              .first()
+    async user(postInJson) {
+      // Convert JSON to model instance
+      const post = new Post()
+      post.newUp(postInJson)
+
+      const user = await post.user().fetch()
 
       return user.toJSON()
     }
