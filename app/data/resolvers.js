@@ -66,7 +66,7 @@ const resolvers = {
           content
         })
       } catch (error) {
-        // Throw eeror is user's not authenticated
+        // Throw error if user is not authenticated
         throw new Error('Missing or invalid jwt token')
       }
     }
