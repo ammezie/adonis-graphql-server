@@ -8,29 +8,29 @@ const slugify = require('slugify')
 const resolvers = {
   Query: {
     // Fetch all users
-    async allUsers() {
+    async allUsers () {
       const users = await User.all()
 
       return users.toJSON()
     },
 
     // Get a user by its ID
-    async fetchUser(_, { id }) {
+    async user (_, { id }) {
       const user = await User.find(id)
 
       return user.toJSON()
     },
 
     // Fetch all posts
-    async allPosts() {
+    async allPosts () {
       const posts = await Post.all()
 
       return posts.toJSON()
     },
 
-    // Get a post by its ID
-    async fetchPost(_, { id }) {
-      const post = await Post.find(id)
+    // Get a post by its slug
+    async post (_, { slug }) {
+      const post = await Post.findBy('slug', slug)
 
       return post.toJSON()
     }
@@ -38,19 +38,19 @@ const resolvers = {
 
   Mutation: {
     // Handles user login
-    async login(_, { email, password }, { auth }) {
+    async login (_, { email, password }, { auth }) {
       const { token } = await auth.attempt(email, password)
 
       return token
     },
 
     // Create new user
-    async createUser(_, { username, email, password }) {
+    async createUser (_, { username, email, password }) {
       return await User.create({ username, email, password })
     },
 
     // Add a new post
-    async addPost(_, { title, content }, { auth }) {
+    async addPost (_, { title, content }, { auth }) {
       try {
         // Check if user is logged in
         await auth.check()
@@ -74,7 +74,7 @@ const resolvers = {
 
   User: {
     // Fetch all posts created by a user
-    async posts(userInJson) {
+    async posts (userInJson) {
       // Convert JSON to model instance
       const user = new User()
       user.newUp(userInJson)
@@ -87,7 +87,7 @@ const resolvers = {
 
   Post: {
     // Fetch the author of a particular post
-    async user(postInJson) {
+    async user (postInJson) {
       // Convert JSON to model instance
       const post = new Post()
       post.newUp(postInJson)
