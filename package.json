@@ -1,6 +1,6 @@
 {
   "name": "adonis-api-app",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Smallest possible application for adonisjs",
   "main": "index.js",
   "scripts": {
@@ -15,19 +15,19 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@adonisjs/ace": "^4.0.6",
-    "@adonisjs/auth": "^2.0.7",
-    "@adonisjs/bodyparser": "^1.0.7",
-    "@adonisjs/cors": "^1.0.1",
-    "@adonisjs/fold": "^4.0.4",
-    "@adonisjs/framework": "^4.0.23",
-    "@adonisjs/ignitor": "^1.0.12",
-    "@adonisjs/lucid": "^4.0.20",
+    "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/auth": "^3.0.7",
+    "@adonisjs/bodyparser": "^2.0.5",
+    "@adonisjs/cors": "^1.0.7",
+    "@adonisjs/fold": "^4.0.9",
+    "@adonisjs/framework": "^5.0.9",
+    "@adonisjs/ignitor": "^2.0.8",
+    "@adonisjs/lucid": "^6.1.3",
     "adonis-apollo-server": "^1.0.2",
-    "graphql": "^0.11.7",
-    "graphql-tools": "^2.6.1",
-    "mysql": "^2.15.0",
-    "slugify": "^1.2.1"
+    "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.3",
+    "mysql": "^2.16.0",
+    "slugify": "^1.3.4"
   },
   "devDependencies": {
     "standard": "^10.0.3"
